@@ -2,6 +2,12 @@
 
 **Gördüğün film ya da dizinin ekran görüntüsünü at; AI tanısın, akşam ne izleyeceğini o seçsin.**
 
+## Ekran kaydı
+
+▶️ **[Ekran kaydını izle (39 sn)](https://github.com/omergkmn/snapwatch/releases/download/v1.0.0/snapwatch-demo.mp4)** · [Release sayfası](https://github.com/omergkmn/snapwatch/releases/tag/v1.0.0)
+
+Kayıt gerçek bir iPhone'da alındı: onboarding → paywall → galeriden ekran görüntüsü seçme → tarama → sonuç → izleme listesi. Galerinin göründüğü birkaç saniye gizlilik için bulanıklaştırıldı.
+
 ## Fikir
 
 Filmleri ve dizileri her yerde görüyoruz: bir Instagram gönderisinde, arkadaşın attığı bir fragmanda, bir hikâyedeki afişte. Ekran görüntüsünü alıyoruz, sonra galeride kayboluyor. Snapwatch bu ekran görüntüsünü izleme listesine dönüştürür: AI görseldeki yapımı tanır; yılını, türünü, süresini, yönetmenini, konusunu ve nerede izleneceğini çıkarır. Akşam olunca kullanıcı "Bu akşam ne izleyelim?" diye sorar, AI da **kullanıcının kendi listesinden** o anki ruh haline en uygun yapımı seçer. Hedef kullanıcı, izlediğinden fazlasını kaydeden herkes. Kullanıcı Premium için para öder, çünkü Premium tarama sınırını kaldırır ve "bu akşam" önerilerini açar.
