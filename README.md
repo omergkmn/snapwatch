@@ -12,7 +12,6 @@ Kayıt gerçek bir iPhone'da alındı: onboarding → paywall → galeriden ekra
 
 Filmleri ve dizileri her yerde görüyoruz: bir Instagram gönderisinde, arkadaşın attığı bir fragmanda, bir hikâyedeki afişte. Ekran görüntüsünü alıyoruz, sonra galeride kayboluyor. Snapwatch bu ekran görüntüsünü izleme listesine dönüştürür: AI görseldeki yapımı tanır; yılını, türünü, süresini, yönetmenini, konusunu ve nerede izleneceğini çıkarır. Akşam olunca kullanıcı "Bu akşam ne izleyelim?" diye sorar, AI da **kullanıcının kendi listesinden** o anki ruh haline en uygun yapımı seçer. Hedef kullanıcı, izlediğinden fazlasını kaydeden herkes. Kullanıcı Premium için para öder, çünkü Premium tarama sınırını kaldırır ve "bu akşam" önerilerini açar.
 
-Snapwatch daha büyük bir fikrin ilk modülü: MOMENTBOX, yani gördüğün her şeyi kaydet, AI doğru anda hatırlatsın. Bu çalışma için tek ve net bir amaçla sınırlandı: film ve dizi.
 
 ## Ekranlar ve akış
 
