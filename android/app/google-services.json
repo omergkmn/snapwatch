@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "758577904356",
+    "project_id": "snapwatch-c0bd4",
+    "storage_bucket": "snapwatch-c0bd4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758577904356:android:cfed59943bb758e1304af1",
+        "android_client_info": {
+          "package_name": "com.omergokmen.snapwatch"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5_6KvmBYY1g_LP2wiSrrlWhmk6M94rLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

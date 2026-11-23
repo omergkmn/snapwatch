@@ -1,0 +1,142 @@
+{
+  "splash": {
+    "tagline": "Save what you see, let AI pick tonight's watch."
+  },
+  "onboarding": {
+    "save_title": "Never lose what you see",
+    "save_body": "Save a film or series you spot on Instagram or in a message with a single screenshot.",
+    "recognize_title": "Let AI recognise it",
+    "recognize_body": "From a poster or a scene, it finds the title, genre and runtime.",
+    "genres_title": "What do you enjoy?",
+    "genres_body": "We'll tailor your picks. Choose at least one genre.",
+    "name_title": "What should we call you?",
+    "name_hint": "Your name",
+    "continue": "Continue",
+    "start": "Get started"
+  },
+  "paywall": {
+    "title": "Snapwatch Premium",
+    "subtitle": "Save every title you spot and never wonder what to watch tonight.",
+    "plan_weekly": "Weekly",
+    "plan_monthly": "Monthly",
+    "plan_yearly": "Yearly",
+    "yearly_per_month": "{price} per month",
+    "savings": "Save {percent}%",
+    "subscribe": "Subscribe",
+    "cancel_anytime": "Cancel anytime.",
+    "restore": "Restore",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "purchased": "Premium is active. Enjoy!",
+    "restored": "Your subscription has been restored.",
+    "nothing_to_restore": "No purchases to restore.",
+    "period_weekly": "/ week",
+    "period_monthly": "/ month",
+    "period_yearly": "/ year",
+    "compare_free": "Free",
+    "compare_premium": "Premium",
+    "feature_scan": "Recognise from images",
+    "feature_watchlist": "Watchlist",
+    "feature_unlimited": "Unlimited scans",
+    "feature_tonight": "Tonight's picks",
+    "feature_genres": "Genre-based picks"
+  },
+  "home": {
+    "greeting": "Hi, {name}",
+    "subtitle": "What are we saving today?",
+    "scan_title": "Save what you've spotted",
+    "scan_body": "Pick a poster, trailer frame or post screenshot and let AI recognise it.",
+    "scan_button": "Choose a screenshot",
+    "scanning": "Recognising…",
+    "free_scans_left": {
+      "zero": "No free scans left",
+      "one": "1 free scan left",
+      "other": "{} free scans left"
+    },
+    "premium_active": "Premium · unlimited scans",
+    "tab_to_watch": "Watchlist",
+    "tab_watched": "Watched",
+    "empty_to_watch": "Your list is empty. Start by choosing a screenshot.",
+    "empty_watched": "Nothing marked as watched yet.",
+    "tonight_subtitle": "Picks the best title from your list for tonight"
+  },
+  "scan": {
+    "step_reading": "Reading the image",
+    "step_recognizing": "Recognising the title",
+    "step_details": "Finding genre and details",
+    "step_finishing": "Almost done",
+    "back": "Go back"
+  },
+  "detail": {
+    "film": "Film",
+    "series": "Series",
+    "minutes": "{} min",
+    "seasons": {
+      "one": "1 season",
+      "other": "{} seasons"
+    },
+    "director": "Director",
+    "creator": "Creator",
+    "where_to_watch": "Where to watch",
+    "no_platforms": "No streaming info found for Turkey.",
+    "platforms_note": "This may have changed, check the platform.",
+    "add": "Add to watchlist",
+    "mark_watched": "Watched it",
+    "mark_unwatched": "Mark as not watched",
+    "remove": "Remove from list",
+    "watched_badge": "Watched",
+    "overview": "Plot",
+    "search_where_to_watch": "Search where to watch",
+    "search_query_suffix": "where to watch"
+  },
+  "recommend": {
+    "title": "What should we watch tonight?",
+    "pref_short": "Something short",
+    "pref_thrilling": "Thrilling",
+    "pref_light": "Light and fun",
+    "pref_film_only": "Films only",
+    "pref_series_only": "Series only",
+    "request_hint": "What are you in the mood for? (optional)",
+    "submit": "Suggest",
+    "results_title": "My picks for tonight",
+    "best_match": "Best match"
+  },
+  "profile": {
+    "title": "Profile",
+    "guest": "Guest account",
+    "guest_since": "Guest account · since {date}",
+    "subscription": "Subscription",
+    "free_plan": "Free plan",
+    "premium_plan": "Premium · {plan}",
+    "premium_benefits": "Unlimited scans and personal picks",
+    "upgrade": "Go Premium",
+    "settings": "Settings",
+    "favorite_genres": "Favourite genres",
+    "language": "Language",
+    "about": "About",
+    "reset": "Reset app data",
+    "reset_title": "Reset app data?",
+    "reset_body": "Your list, profile and subscription info will be deleted from this device. This can't be undone.",
+    "reset_confirm": "Reset",
+    "cancel": "Cancel"
+  },
+  "genres": {
+    "action": "Action",
+    "comedy": "Comedy",
+    "drama": "Drama",
+    "sci_fi": "Sci-Fi",
+    "thriller": "Thriller",
+    "horror": "Horror",
+    "romance": "Romance",
+    "animation": "Animation",
+    "documentary": "Documentary",
+    "crime": "Crime"
+  },
+  "errors": {
+    "network": "Couldn't connect. Please try again.",
+    "not_media": "I couldn't find a film or series in this image.",
+    "empty_watchlist": "Add a few titles to your list first.",
+    "no_match": "Nothing in your list matches this request.",
+    "unknown": "Something went wrong. Please try again."
+  }
+}

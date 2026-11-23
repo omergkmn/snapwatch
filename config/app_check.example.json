@@ -1,0 +1,4 @@
+{
+  "APP_CHECK_ANDROID_DEBUG_TOKEN": "<debug token registered for the Android app>",
+  "APP_CHECK_IOS_DEBUG_TOKEN": "<debug token registered for the iOS app>"
+}

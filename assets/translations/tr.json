@@ -1,0 +1,140 @@
+{
+  "splash": {
+    "tagline": "Gördüğünü kaydet, akşam ne izleyeceğini AI seçsin."
+  },
+  "onboarding": {
+    "save_title": "Gördüğünü unutma",
+    "save_body": "Instagram'da ya da bir mesajda gördüğün film veya diziyi ekran görüntüsüyle kaydet.",
+    "recognize_title": "AI tanısın",
+    "recognize_body": "Afişten ya da sahneden yapımın adını, türünü ve süresini bulur.",
+    "genres_title": "Neleri seversin?",
+    "genres_body": "Önerilerini buna göre hazırlayalım. En az bir tür seç.",
+    "name_title": "Sana nasıl hitap edelim?",
+    "name_hint": "Adın",
+    "continue": "Devam",
+    "start": "Başla"
+  },
+  "paywall": {
+    "title": "Snapwatch Premium",
+    "subtitle": "Gördüğün her yapımı kaydet, akşam ne izleyeceğini dert etme.",
+    "plan_weekly": "Haftalık",
+    "plan_monthly": "Aylık",
+    "plan_yearly": "Yıllık",
+    "yearly_per_month": "Aylık {price}",
+    "savings": "%{percent} tasarruf",
+    "subscribe": "Abone ol",
+    "cancel_anytime": "İstediğin zaman iptal edebilirsin.",
+    "restore": "Geri yükle",
+    "terms": "Kullanım Koşulları",
+    "privacy": "Gizlilik Politikası",
+    "purchased": "Premium etkin. İyi seyirler!",
+    "restored": "Aboneliğin geri yüklendi.",
+    "nothing_to_restore": "Geri yüklenecek satın alım bulunamadı.",
+    "period_weekly": "/ hafta",
+    "period_monthly": "/ ay",
+    "period_yearly": "/ yıl",
+    "compare_free": "Ücretsiz",
+    "compare_premium": "Premium",
+    "feature_scan": "Görselden tanıma",
+    "feature_watchlist": "İzleme listesi",
+    "feature_unlimited": "Sınırsız tarama",
+    "feature_tonight": "Akşam önerileri",
+    "feature_genres": "Türüne göre öneriler"
+  },
+  "home": {
+    "greeting": "Merhaba, {name}",
+    "subtitle": "Bugün ne kaydediyoruz?",
+    "scan_title": "Gördüğün yapımı kaydet",
+    "scan_body": "Afiş, fragman ya da paylaşım ekran görüntüsünü seç, AI tanısın.",
+    "scan_button": "Ekran görüntüsü seç",
+    "scanning": "Tanınıyor…",
+    "free_scans_left": {
+      "zero": "Ücretsiz tarama hakkın bitti",
+      "other": "{} ücretsiz tarama hakkın kaldı"
+    },
+    "premium_active": "Premium · sınırsız tarama",
+    "tab_to_watch": "İzlenecekler",
+    "tab_watched": "İzlediklerim",
+    "empty_to_watch": "Listen boş. Bir ekran görüntüsü seçerek başla.",
+    "empty_watched": "Henüz izlendi olarak işaretlediğin bir yapım yok.",
+    "tonight_subtitle": "Listenden bu akşama en uygun yapımı seçer"
+  },
+  "scan": {
+    "step_reading": "Görsel inceleniyor",
+    "step_recognizing": "Yapım tanınıyor",
+    "step_details": "Tür ve bilgiler belirleniyor",
+    "step_finishing": "Bitmek üzere",
+    "back": "Geri dön"
+  },
+  "detail": {
+    "film": "Film",
+    "series": "Dizi",
+    "minutes": "{} dk",
+    "seasons": {
+      "other": "{} sezon"
+    },
+    "director": "Yönetmen",
+    "creator": "Yaratıcı",
+    "where_to_watch": "Nerede izlenir",
+    "no_platforms": "Türkiye'deki platform bilgisi bulunamadı.",
+    "platforms_note": "Bilgi değişmiş olabilir, platformda kontrol et.",
+    "add": "İzlenecekler'e ekle",
+    "mark_watched": "İzledim",
+    "mark_unwatched": "İzlemedim olarak işaretle",
+    "remove": "Listeden çıkar",
+    "watched_badge": "İzlendi",
+    "overview": "Konu",
+    "search_where_to_watch": "Nerede izlenir? Ara",
+    "search_query_suffix": "izle"
+  },
+  "recommend": {
+    "title": "Bu akşam ne izleyelim?",
+    "pref_short": "Kısa bir şey",
+    "pref_thrilling": "Gerilimli",
+    "pref_light": "Hafif ve eğlenceli",
+    "pref_film_only": "Sadece film",
+    "pref_series_only": "Sadece dizi",
+    "request_hint": "Ne izlemek istersin? (isteğe bağlı)",
+    "submit": "Öner",
+    "results_title": "Bu akşam için önerilerim",
+    "best_match": "En uygun"
+  },
+  "profile": {
+    "title": "Profil",
+    "guest": "Misafir hesabı",
+    "guest_since": "Misafir hesabı · {date} tarihinden beri",
+    "subscription": "Abonelik",
+    "free_plan": "Ücretsiz plan",
+    "premium_plan": "Premium · {plan}",
+    "premium_benefits": "Sınırsız tarama ve kişisel öneriler",
+    "upgrade": "Premium'a geç",
+    "settings": "Ayarlar",
+    "favorite_genres": "Sevdiğin türler",
+    "language": "Dil",
+    "about": "Hakkında",
+    "reset": "Verileri sıfırla",
+    "reset_title": "Verileri sıfırla?",
+    "reset_body": "Listen, profilin ve abonelik bilgin bu cihazdan silinecek. Bu işlem geri alınamaz.",
+    "reset_confirm": "Sıfırla",
+    "cancel": "Vazgeç"
+  },
+  "genres": {
+    "action": "Aksiyon",
+    "comedy": "Komedi",
+    "drama": "Dram",
+    "sci_fi": "Bilim Kurgu",
+    "thriller": "Gerilim",
+    "horror": "Korku",
+    "romance": "Romantik",
+    "animation": "Animasyon",
+    "documentary": "Belgesel",
+    "crime": "Suç"
+  },
+  "errors": {
+    "network": "Bağlantı kurulamadı, tekrar dene.",
+    "not_media": "Bu görselde bir film ya da dizi bulamadım.",
+    "empty_watchlist": "Önce listene birkaç yapım ekle.",
+    "no_match": "Listende bu isteğe uyan bir yapım yok.",
+    "unknown": "Bir şeyler ters gitti, tekrar dene."
+  }
+}
