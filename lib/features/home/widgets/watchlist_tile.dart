@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/l10n/locale_keys.g.dart';
-import '../../../core/widgets/poster_placeholder.dart';
+import '../../../core/widgets/poster_image.dart';
 import '../../../data/models/media_title.dart';
 import '../../../data/models/watchlist_item.dart';
 
@@ -52,7 +52,10 @@ class WatchlistTile extends StatelessWidget {
               horizontal: 12,
               vertical: 6,
             ),
-            leading: PosterPlaceholder(title: title.title),
+            leading: PosterImage(
+              title: title.title,
+              posterUrl: title.posterUrl,
+            ),
             title: Text(title.title, style: textTheme.titleMedium),
             subtitle: Text(meta, style: textTheme.bodySmall),
             trailing: item.status == WatchStatus.watched

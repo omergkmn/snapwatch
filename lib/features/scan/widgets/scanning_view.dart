@@ -8,12 +8,28 @@ import '../../../app/theme.dart';
 import '../../../core/errors/app_exception.dart';
 import '../../../core/l10n/l10n_extensions.dart';
 import '../../../core/l10n/locale_keys.g.dart';
+import '../scan_state.dart';
 
 class ScanningView extends StatefulWidget {
-  const ScanningView({super.key, required this.image, this.error});
+  const ScanningView({
+    super.key,
+    required this.image,
+    required this.step,
+    this.error,
+    this.isComplete = false,
+    this.onFinished,
+  });
 
   final Uint8List image;
+
+  /// The step the scan has really reached.
+  final ScanStep step;
   final AppErrorType? error;
+
+  /// True when the result is ready; [onFinished] is called once the list
+  /// has shown the last step.
+  final bool isComplete;
+  final VoidCallback? onFinished;
 
   @override
   State<ScanningView> createState() => _ScanningViewState();
@@ -21,33 +37,42 @@ class ScanningView extends StatefulWidget {
 
 class _ScanningViewState extends State<ScanningView>
     with SingleTickerProviderStateMixin {
-  static const _steps = [
-    LocaleKeys.scan_step_reading,
-    LocaleKeys.scan_step_recognizing,
-    LocaleKeys.scan_step_details,
-    LocaleKeys.scan_step_finishing,
-  ];
+  static const _labels = {
+    ScanStep.reading: LocaleKeys.scan_step_reading,
+    ScanStep.recognizing: LocaleKeys.scan_step_recognizing,
+    ScanStep.details: LocaleKeys.scan_step_details,
+    ScanStep.finishing: LocaleKeys.scan_step_finishing,
+  };
+
+  // Each step stays on screen at least this long so it can be read; the
+  // list follows the real step and never runs ahead of it.
+  static const _minStepTime = Duration(milliseconds: 600);
 
   late final _scanLine = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 1600),
   )..repeat(reverse: true);
 
-  // The AI gives no progress, so the steps advance on a timer and the last
-  // one stays active until the answer arrives.
   late final Timer _stepTimer;
-  int _currentStep = 0;
+  int _shownStep = 0;
+  bool _finishedCalled = false;
 
   @override
   void initState() {
     super.initState();
-    _stepTimer = Timer.periodic(const Duration(milliseconds: 1300), (timer) {
-      if (_currentStep == _steps.length - 1) {
-        timer.cancel();
-      } else {
-        setState(() => _currentStep++);
-      }
-    });
+    _stepTimer = Timer.periodic(_minStepTime, (_) => _advance());
+  }
+
+  void _advance() {
+    final target = widget.step.index;
+    if (_shownStep < target) {
+      setState(() => _shownStep++);
+    } else if (widget.isComplete &&
+        _shownStep == ScanStep.finishing.index &&
+        !_finishedCalled) {
+      _finishedCalled = true;
+      widget.onFinished?.call();
+    }
   }
 
   @override
@@ -76,11 +101,11 @@ class _ScanningViewState extends State<ScanningView>
               ),
               const SizedBox(height: 36),
               if (error == null)
-                for (final (index, step) in _steps.indexed)
+                for (final step in ScanStep.values)
                   _StepRow(
-                    text: step.tr(),
-                    isDone: index < _currentStep,
-                    isActive: index == _currentStep,
+                    text: _labels[step]!.tr(),
+                    isDone: step.index < _shownStep,
+                    isActive: step.index == _shownStep,
                   )
               else ...[
                 const Icon(Icons.error_outline, color: AppColors.error),

@@ -55,8 +55,9 @@ class _HomeViewState extends State<_HomeView> {
 
     final image = await ImagePicker().pickImage(
       source: ImageSource.gallery,
-      maxWidth: 1600,
-      imageQuality: 85,
+      // Gemini works on smaller images anyway; less to upload is faster.
+      maxWidth: 1024,
+      imageQuality: 80,
     );
     if (image == null || !context.mounted) return;
 

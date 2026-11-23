@@ -7,29 +7,67 @@ import '../models/media_title.dart';
 import '../models/recommendation.dart';
 import '../models/watch_preference.dart';
 import '../services/gemini_service.dart';
+import '../services/tmdb_service.dart';
 
 class MediaRepository {
-  MediaRepository(this._geminiService);
+  MediaRepository(this._geminiService, this._tmdbService);
 
   final GeminiService _geminiService;
+  final TmdbService _tmdbService;
 
   Future<MediaTitle> recognize({
     required Uint8List image,
     required String mimeType,
     required String languageCode,
+    void Function()? onRequestSent,
+    void Function()? onFirstChunk,
   }) async {
     final json = await _call(
       () => _geminiService.recognizeTitle(
         image: image,
         mimeType: mimeType,
         language: _languageName(languageCode),
+        onRequestSent: onRequestSent,
+        onFirstChunk: onFirstChunk,
       ),
     );
 
     if (json['isMediaTitle'] != true || json['title'] == null) {
       throw const AppException(AppErrorType.notMedia);
     }
-    return MediaTitle.fromJson(json);
+    return _addCatalogData(MediaTitle.fromJson(json));
+  }
+
+  /// The AI recognises the title; TMDB, a real catalogue, supplies the
+  /// poster and where it is available in Turkey. If TMDB can't help, the
+  /// AI's answer is kept as it is.
+  Future<MediaTitle> _addCatalogData(MediaTitle title) async {
+    if (!_tmdbService.isConfigured) return title;
+
+    final isSeries = title.type == MediaType.series;
+    try {
+      final match = await _tmdbService.search(
+        query: title.originalTitle ?? title.title,
+        isSeries: isSeries,
+        year: title.year,
+      );
+      if (match == null) return title;
+
+      final posterPath = match['poster_path'] as String?;
+      final providers = await _tmdbService.turkishProviders(
+        id: match['id'] as int,
+        isSeries: isSeries,
+      );
+      return title.copyWith(
+        platforms: providers,
+        posterUrl: posterPath == null
+            ? null
+            : _tmdbService.posterUrl(posterPath),
+      );
+    } on Exception catch (e) {
+      debugPrint('TMDB lookup failed: $e');
+      return title;
+    }
   }
 
   Future<List<Recommendation>> recommend({

@@ -175,7 +175,7 @@ void main() {
     await goBack();
     await waitFor(find.byType(ScanCard));
 
-    // Profile: switch to English, then reset everything
+    // Profile: switch to English, then delete the account
     await tester.tap(find.byIcon(Icons.person_outline));
     await waitFor(find.byType(ProfileScreen));
     await shot('profile');
@@ -185,10 +185,10 @@ void main() {
     await tapText('English');
     await tester.pump(const Duration(milliseconds: 600));
     await shot('profile-english');
-    await tapText(LocaleKeys.profile_reset.tr(), scroll: true);
-    await shot('profile-reset-dialog');
-    await tapText(LocaleKeys.profile_reset_confirm.tr());
+    await tapText(LocaleKeys.profile_delete_account.tr(), scroll: true);
+    await shot('profile-delete-dialog');
+    await tapText(LocaleKeys.profile_delete_confirm.tr());
     await waitFor(find.byType(OnboardingScreen));
-    await shot('onboarding-after-reset');
+    await shot('onboarding-after-delete');
   });
 }

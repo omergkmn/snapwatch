@@ -1,17 +1,32 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:firebase_ai/firebase_ai.dart';
+import 'package:flutter/foundation.dart';
 
 class GeminiService {
-  final _titleModel = _jsonModel(_titleSchema, temperature: 0.2);
-  final _recommendModel = _jsonModel(_recommendSchema, temperature: 0.7);
+  GeminiService({this.logTimings = false});
+
+  /// Prints how long each request takes; on in the dev build only.
+  final bool logTimings;
+
+  // Recognising a title is simple, so the model barely needs to think.
+  final _titleModel = _jsonModel(
+    _titleSchema,
+    temperature: 0.2,
+    thinkingLevel: ThinkingLevel.minimal,
+  );
+  final _recommendModel = _jsonModel(
+    _recommendSchema,
+    temperature: 0.7,
+    thinkingLevel: ThinkingLevel.low,
+  );
 
   static const _timeout = Duration(seconds: 45);
 
   static GenerativeModel _jsonModel(
     Schema schema, {
     required double temperature,
+    required ThinkingLevel thinkingLevel,
   }) {
     return FirebaseAI.googleAI().generativeModel(
       model: 'gemini-3.5-flash-lite',
@@ -19,8 +34,7 @@ class GeminiService {
         responseMimeType: 'application/json',
         responseSchema: schema,
         temperature: temperature,
-        // Both tasks are simple; low thinking keeps answers fast.
-        thinkingConfig: ThinkingConfig.withThinkingLevel(ThinkingLevel.low),
+        thinkingConfig: ThinkingConfig.withThinkingLevel(thinkingLevel),
       ),
     );
   }
@@ -75,6 +89,8 @@ class GeminiService {
     required Uint8List image,
     required String mimeType,
     required String language,
+    void Function()? onRequestSent,
+    void Function()? onFirstChunk,
   }) async {
     final prompt =
         'Identify the film or series in this image. It may be a poster, a '
@@ -89,9 +105,24 @@ class GeminiService {
         'where you are fairly confident it is available; otherwise return an '
         'empty list.';
 
-    return _generate(_titleModel, [
+    // Streamed, so the scan screen can show when the answer starts coming.
+    final stopwatch = Stopwatch()..start();
+    final stream = _titleModel.generateContentStream([
       Content.multi([TextPart(prompt), InlineDataPart(mimeType, image)]),
     ]);
+    onRequestSent?.call();
+
+    final text = StringBuffer();
+    await for (final chunk in stream.timeout(_timeout)) {
+      if (text.isEmpty) {
+        _log('first chunk', stopwatch);
+        onFirstChunk?.call();
+      }
+      text.write(chunk.text ?? '');
+    }
+    _log('recognition done', stopwatch);
+    return jsonDecode(text.isEmpty ? '{}' : text.toString())
+        as Map<String, dynamic>;
   }
 
   /// [candidates] is the user's watchlist; picks refer to it by index.
@@ -119,7 +150,15 @@ class GeminiService {
     GenerativeModel model,
     List<Content> content,
   ) async {
+    final stopwatch = Stopwatch()..start();
     final response = await model.generateContent(content).timeout(_timeout);
+    _log('recommendation done', stopwatch);
     return jsonDecode(response.text ?? '{}') as Map<String, dynamic>;
+  }
+
+  void _log(String event, Stopwatch stopwatch) {
+    if (logTimings) {
+      debugPrint('Gemini $event in ${stopwatch.elapsedMilliseconds} ms');
+    }
   }
 }

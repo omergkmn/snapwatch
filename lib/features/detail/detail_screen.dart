@@ -6,7 +6,7 @@ import '../../app/theme.dart';
 import '../../core/l10n/locale_keys.g.dart';
 import '../../data/models/media_title.dart';
 import '../../data/repositories/watchlist_repository.dart';
-import '../../core/widgets/poster_placeholder.dart';
+import '../../core/widgets/poster_image.dart';
 import 'detail_cubit.dart';
 import 'widgets/platform_list.dart';
 import 'widgets/watchlist_actions.dart';
@@ -41,7 +41,12 @@ class DetailScreen extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                PosterPlaceholder(title: title.title, width: 96, height: 136),
+                PosterImage(
+                  title: title.title,
+                  posterUrl: title.posterUrl,
+                  width: 96,
+                  height: 136,
+                ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(

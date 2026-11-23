@@ -8,8 +8,8 @@ class ProfileState {
     this.memberSince,
     this.activePlan,
     this.remainingFreeScans = 0,
-    this.isResetting = false,
-    this.didReset = false,
+    this.isDeleting = false,
+    this.isDeleted = false,
   });
 
   final String name;
@@ -17,8 +17,20 @@ class ProfileState {
   final DateTime? memberSince;
   final SubscriptionPlan? activePlan;
   final int remainingFreeScans;
-  final bool isResetting;
-  final bool didReset;
+  final bool isDeleting;
+  final bool isDeleted;
 
   bool get isPremium => activePlan != null;
+
+  ProfileState copyWith({bool? isDeleting, bool? isDeleted}) {
+    return ProfileState(
+      name: name,
+      favoriteGenres: favoriteGenres,
+      memberSince: memberSince,
+      activePlan: activePlan,
+      remainingFreeScans: remainingFreeScans,
+      isDeleting: isDeleting ?? this.isDeleting,
+      isDeleted: isDeleted ?? this.isDeleted,
+    );
+  }
 }

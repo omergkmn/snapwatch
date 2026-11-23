@@ -114,10 +114,10 @@
     "favorite_genres": "Favourite genres",
     "language": "Language",
     "about": "About",
-    "reset": "Reset app data",
-    "reset_title": "Reset app data?",
-    "reset_body": "Your list, profile and subscription info will be deleted from this device. This can't be undone.",
-    "reset_confirm": "Reset",
+    "delete_account": "Delete account",
+    "delete_title": "Delete your account?",
+    "delete_body": "Your guest account, watchlist, profile and subscription info will be deleted. This can't be undone.",
+    "delete_confirm": "Delete account",
     "cancel": "Cancel"
   },
   "genres": {

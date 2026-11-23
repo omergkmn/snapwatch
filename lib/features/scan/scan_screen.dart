@@ -30,20 +30,50 @@ class ScanScreen extends StatelessWidget {
             mimeType: request.mimeType,
             languageCode: context.locale.languageCode,
           ),
-      child: BlocBuilder<ScanCubit, ScanState>(
-        builder: (context, state) => AnimatedSwitcher(
-          duration: const Duration(milliseconds: 400),
-          child: switch (state) {
-            ScanSuccess(:final title) => DetailScreen(title: title),
-            ScanFailure(:final error) => ScanningView(
-              image: request.image,
-              error: error,
-            ),
-            ScanIdle() ||
-            ScanInProgress() => ScanningView(image: request.image),
-          },
+      child: _ScanView(request: request),
+    );
+  }
+}
+
+class _ScanView extends StatefulWidget {
+  const _ScanView({required this.request});
+
+  final ScanRequest request;
+
+  @override
+  State<_ScanView> createState() => _ScanViewState();
+}
+
+class _ScanViewState extends State<_ScanView> {
+  // The result opens only after the progress list has shown its last step.
+  bool _progressFinished = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final state = context.watch<ScanCubit>().state;
+
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 400),
+      child: switch (state) {
+        ScanSuccess(:final title) when _progressFinished => DetailScreen(
+          title: title,
         ),
-      ),
+        ScanFailure(:final error) => ScanningView(
+          image: widget.request.image,
+          step: ScanStep.reading,
+          error: error,
+        ),
+        ScanSuccess() => ScanningView(
+          image: widget.request.image,
+          step: ScanStep.finishing,
+          isComplete: true,
+          onFinished: () => setState(() => _progressFinished = true),
+        ),
+        ScanInProgress(:final step) => ScanningView(
+          image: widget.request.image,
+          step: step,
+        ),
+      },
     );
   }
 }

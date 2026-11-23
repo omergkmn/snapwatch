@@ -103,10 +103,10 @@ abstract class LocaleKeys {
   static const profile_favorite_genres = 'profile.favorite_genres';
   static const profile_language = 'profile.language';
   static const profile_about = 'profile.about';
-  static const profile_reset = 'profile.reset';
-  static const profile_reset_title = 'profile.reset_title';
-  static const profile_reset_body = 'profile.reset_body';
-  static const profile_reset_confirm = 'profile.reset_confirm';
+  static const profile_delete_account = 'profile.delete_account';
+  static const profile_delete_title = 'profile.delete_title';
+  static const profile_delete_body = 'profile.delete_body';
+  static const profile_delete_confirm = 'profile.delete_confirm';
   static const profile_cancel = 'profile.cancel';
   static const profile = 'profile';
   static const genres_action = 'genres.action';

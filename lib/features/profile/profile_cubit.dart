@@ -24,11 +24,12 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
-  Future<void> resetAllData() async {
-    if (state.isResetting) return;
+  Future<void> deleteAccount() async {
+    if (state.isDeleting) return;
 
-    emit(const ProfileState(isResetting: true));
-    await _userRepository.resetAllData();
-    emit(const ProfileState(didReset: true));
+    // The profile stays on screen until the app moves to onboarding.
+    emit(state.copyWith(isDeleting: true));
+    await _userRepository.deleteAccount();
+    emit(state.copyWith(isDeleted: true));
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/l10n/locale_keys.g.dart';
+import '../../../core/widgets/poster_image.dart';
 import '../../../data/models/media_title.dart';
 import '../../../data/models/recommendation.dart';
 
@@ -35,40 +36,57 @@ class RecommendationCard extends StatelessWidget {
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(18),
-          child: Column(
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(title.title, style: textTheme.titleMedium),
-                  ),
-                  if (isBestMatch)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.silver,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        LocaleKeys.recommend_best_match.tr(),
-                        style: textTheme.bodySmall?.copyWith(
-                          color: AppColors.background,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                ],
+              PosterImage(
+                title: title.title,
+                posterUrl: title.posterUrl,
+                width: 56,
+                height: 80,
               ),
-              const SizedBox(height: 2),
-              Text(meta, style: textTheme.bodySmall),
-              if (recommendation.reason.isNotEmpty) ...[
-                const SizedBox(height: 12),
-                Text(recommendation.reason, style: textTheme.bodyMedium),
-              ],
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            title.title,
+                            style: textTheme.titleMedium,
+                          ),
+                        ),
+                        if (isBestMatch)
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.silver,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              LocaleKeys.recommend_best_match.tr(),
+                              style: textTheme.bodySmall?.copyWith(
+                                color: AppColors.background,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 2),
+                    Text(meta, style: textTheme.bodySmall),
+                    if (recommendation.reason.isNotEmpty) ...[
+                      const SizedBox(height: 12),
+                      Text(recommendation.reason, style: textTheme.bodyMedium),
+                    ],
+                  ],
+                ),
+              ),
             ],
           ),
         ),

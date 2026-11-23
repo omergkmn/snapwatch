@@ -41,12 +41,12 @@ class _ProfileView extends StatelessWidget {
     if (context.mounted) context.read<ProfileCubit>().refresh();
   }
 
-  Future<void> _confirmReset(BuildContext context) async {
+  Future<void> _confirmDelete(BuildContext context) async {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: Text(LocaleKeys.profile_reset_title.tr()),
-        content: Text(LocaleKeys.profile_reset_body.tr()),
+        title: Text(LocaleKeys.profile_delete_title.tr()),
+        content: Text(LocaleKeys.profile_delete_body.tr()),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
@@ -55,13 +55,13 @@ class _ProfileView extends StatelessWidget {
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, true),
             style: TextButton.styleFrom(foregroundColor: AppColors.error),
-            child: Text(LocaleKeys.profile_reset_confirm.tr()),
+            child: Text(LocaleKeys.profile_delete_confirm.tr()),
           ),
         ],
       ),
     );
     if (confirmed == true && context.mounted) {
-      context.read<ProfileCubit>().resetAllData();
+      context.read<ProfileCubit>().deleteAccount();
     }
   }
 
@@ -78,7 +78,7 @@ class _ProfileView extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return BlocListener<ProfileCubit, ProfileState>(
-      listenWhen: (previous, current) => current.didReset,
+      listenWhen: (previous, current) => current.isDeleted,
       listener: (context, state) => context.go(AppRoutes.onboarding),
       child: Scaffold(
         appBar: AppBar(
@@ -185,11 +185,11 @@ class _ProfileView extends StatelessWidget {
                     color: AppColors.error,
                   ),
                   title: Text(
-                    LocaleKeys.profile_reset.tr(),
+                    LocaleKeys.profile_delete_account.tr(),
                     style: const TextStyle(color: AppColors.error),
                   ),
-                  enabled: !state.isResetting,
-                  onTap: () => _confirmReset(context),
+                  enabled: !state.isDeleting,
+                  onTap: () => _confirmDelete(context),
                 ),
               ],
             ),

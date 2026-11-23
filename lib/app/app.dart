@@ -9,6 +9,7 @@ import '../data/repositories/user_repository.dart';
 import '../data/repositories/watchlist_repository.dart';
 import '../data/services/auth_service.dart';
 import '../data/services/gemini_service.dart';
+import '../data/services/tmdb_service.dart';
 import '../data/services/local_storage_service.dart';
 import 'app_environment.dart';
 import 'router.dart';
@@ -36,7 +37,10 @@ class SnapwatchApp extends StatelessWidget {
           create: (context) => SubscriptionRepository(storage),
         ),
         RepositoryProvider(
-          create: (context) => MediaRepository(GeminiService()),
+          create: (context) => MediaRepository(
+            GeminiService(logTimings: environment.isDev),
+            TmdbService(),
+          ),
         ),
         RepositoryProvider(create: (context) => WatchlistRepository(storage)),
       ],

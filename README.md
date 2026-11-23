@@ -4,7 +4,7 @@
 
 ## Ekran kaydı
 
-▶️ **[Ekran kaydını izle (39 sn)](https://github.com/omergkmn/snapwatch/releases/download/v1.0.0/snapwatch-demo.mp4)** · [Release sayfası](https://github.com/omergkmn/snapwatch/releases/tag/v1.0.0)
+▶️ **[Ekran kaydını izle (1 dk)](https://github.com/omergkmn/snapwatch/releases/download/v1.0.0/snapwatch-demo.mp4)** · [Release sayfası](https://github.com/omergkmn/snapwatch/releases/tag/v1.0.0)
 
 Kayıt gerçek bir iPhone'da alındı: onboarding → paywall → galeriden ekran görüntüsü seçme → tarama → sonuç → izleme listesi. Galerinin göründüğü birkaç saniye gizlilik için bulanıklaştırıldı.
 
@@ -23,7 +23,7 @@ Filmleri ve dizileri her yerde görüyoruz: bir Instagram gönderisinde, arkada�
 | Ana Sayfa (navigation bar yok) | Ekran görüntüsü tarama, "Bu akşam ne izleyelim?" (Premium), İzlenecekler ve İzlediklerim sekmeleri. |
 | Tarama → Sonuç | Seçilen görselin üstünde tarama adımları, ardından AI sonucu: ad, yıl, süre/sezon, türler, yönetmen, konu, nerede izlenir, listeye ekle / izledim. |
 | Öneri | Ruh hali seçenekleri ve serbest metin; listeden en fazla 3 öneri, her birinin gerekçesiyle. |
-| Profil | Misafir hesabı, abonelik durumu, dil (Türkçe / English), sevdiğin türler, koşullar, gizlilik, verileri sıfırlama. |
+| Profil | Misafir hesabı, abonelik durumu, dil (Türkçe / English), sevdiğin türler, koşullar, gizlilik, hesabı silme. |
 
 **Ücretsiz / Premium:** Ücretsiz kullanıcının 3 başarılı tarama hakkı var; başarısız tarama hakkı düşürmez. Premium sınırsız tarama ve "bu akşam" önerilerini açar. Satın alma taklit ediliyor, gerçek ödeme alınmıyor.
 
@@ -79,6 +79,8 @@ AI uygulamanın merkezinde ve **Gemini (Firebase AI Logic)** üzerinden iki iş 
 - Boş metinler eksik alan sayılıyor.
 - Cevaplar uygulamanın seçili dilinde (Türkçe veya İngilizce) geliyor.
 
+**Afiş ve "nerede izlenir" bilgisi TMDB'den.** AI yapımı tanıdıktan sonra adı ve yılı [TMDB](https://www.themoviedb.org)'de (The Movie Database) aranıyor; gerçek afiş ve Türkiye'deki platformlar (abonelik, kiralama, satın alma) oradan geliyor. Dil modeli hangi yapımın bugün hangi platformda olduğunu güvenilir şekilde bilemediği için bu bilgi AI'a bırakılmadı. TMDB'ye ulaşılamazsa uygulama AI'ın cevabıyla devam ediyor; platform bulunamazsa web araması öneriliyor.
+
 **Model seçimi:** `gemini-3.5-flash-lite` (stable, kapanma tarihi yok). `gemini-3.8-flash` testler sırasında bu projede cevap vermedi; daha hızlı olan lite modeli ölçülerek seçildi. Tanıma birkaç saniye sürüyor.
 
 **Güvenlik:** Gemini API anahtarı uygulamanın içinde değil; istekler Firebase AI Logic üzerinden gidiyor ve **Firebase App Check** ile korunuyor. App Check, Kasım 2026'dan beri AI Logic için zorunlu. Mağaza sürümlerinde Play Integrity / App Attest, geliştirme sürümlerinde kayıtlı bir debug token kullanılıyor.
@@ -95,10 +97,13 @@ AI uygulamanın merkezinde ve **Gemini (Firebase AI Logic)** üzerinden iki iş 
 | `easy_localization` | Türkçe (varsayılan) ve İngilizce, Profil'den değiştirilebilir; anahtarlar `LocaleKeys` olarak üretiliyor. |
 | `shared_preferences` | Profil, plan, tarama sayısı ve izleme listesi cihazda. |
 | `image_picker` | Galeriden ekran görüntüsü seçme. |
+| `http` | TMDB'den afiş ve platform bilgisi. |
 | `url_launcher` | Platform linkleri, kullanım koşulları ve gizlilik. |
 | `integration_test`, `flutter_driver` (dev) | Bütün akışın ekran görüntüleriyle uçtan uca testi. |
 
 Bilerek kullanılmayanlar: kod üretimi (freezed / json_serializable), get_it / injectable ve use-case katmanı. Bu boyutta fayda sağlamadan dosya sayısını artırırlardı.
+
+Afiş ve platform verisi TMDB'den alınıyor. *This product uses the TMDB API but is not endorsed or certified by TMDB.*
 
 Fontlar (Poppins, Cormorant Garamond) `assets/fonts` altında projeye gömülü (SIL Open Font License).
 
@@ -110,16 +115,17 @@ Gereksinimler: Flutter **3.47.1** (stable), iOS için Xcode, Android için Andro
 flutter pub get
 ```
 
-**App Check debug token.** Firebase ayar dosyaları repoda var, ama Firebase AI Logic sadece App Check'ten geçen uygulamalara cevap veriyor. Simülatör, emülatör ve yerel derlemelerde bunun için bir debug token gerekiyor:
+**Anahtarlar.** Firebase ayar dosyaları repoda var. Firebase AI Logic sadece App Check'ten geçen uygulamalara cevap veriyor; simülatör, emülatör ve yerel derlemelerde bunun için bir debug token gerekiyor. Afiş ve platform bilgisi için de bir TMDB API anahtarı gerekiyor (anahtar yoksa uygulama AI'ın bilgisiyle çalışmaya devam eder):
 
-1. `config/app_check.example.json` dosyasını `config/app_check.json` olarak kopyala. Bu dosya git'e girmez.
+1. `config/secrets.example.json` dosyasını `config/secrets.json` olarak kopyala. Bu dosya git'e girmez.
 2. İçine her platform için bir debug token yaz. Aynı token'ları Firebase Console → App Check → Apps → Manage debug tokens'a kaydet.
+3. [TMDB](https://www.themoviedb.org/settings/api)'den aldığın API anahtarını `TMDB_API_KEY` alanına yaz.
 
 Çalıştırma:
 
 ```bash
-flutter run -t lib/main_dev.dart  --dart-define-from-file=config/app_check.json
-flutter run -t lib/main_prod.dart --dart-define-from-file=config/app_check.json
+flutter run -t lib/main_dev.dart  --dart-define-from-file=config/secrets.json
+flutter run -t lib/main_prod.dart --dart-define-from-file=config/secrets.json
 ```
 
 `assets/translations/*.json` dosyalarına metin ekledikten sonra anahtarları yeniden üret:
@@ -137,21 +143,21 @@ dart run easy_localization:generate -S assets/translations -s tr.json -f keys -O
 - bir yapım izlendi olarak işaretlenir;
 - plan satın alınır;
 - izlenen yapımın **önerilmediği** kontrol edilir;
-- dil değiştirilir ve uygulama sıfırlanır.
+- dil değiştirilir ve hesap silinir.
 
 Her adımın ekran görüntüsünü `build/screenshots/` klasörüne kaydeder.
 
 ```bash
 flutter drive --driver=test_driver/integration_test.dart \
   --target=integration_test/app_flow_test.dart \
-  --dart-define-from-file=config/app_check.json -d <cihaz-id>
+  --dart-define-from-file=config/secrets.json -d <cihaz-id>
 ```
 
 Sistemin galeri seçicisi testle kullanılamadığı için test, tarama ekranını `integration_test/sample_images.dart` içindeki örnek görsellerle açıyor. Bunlar gerçek afiş değil, basit üretilmiş görseller. Test Android emülatöründe ve iOS simülatöründe geçiyor.
 
 ## Bilinen sınırlar ve sonraki adımlar
 
-- **Nerede izlenir** bilgisi AI'dan geliyor ve yanlış ya da eski olabilir. Ekranda bu belirtiliyor; platform bulunamazsa web araması öneriliyor. Sonraki adım: TMDB'den (JustWatch verisi) gerçek platform bilgisi ve afişler.
+- TMDB'de bulunamayan yapımlarda platform bilgisi AI'ın tahmini; ekranda bunun değişmiş olabileceği belirtiliyor.
 - Paywall statik; mağaza `SubscriptionRepository` içinde taklit ediliyor. RevenueCat ya da `in_app_purchase` eklenince sadece bu dosya değişir.
 - Galeriden seçmek yerine paylaş menüsü (Instagram'dan "Snapwatch'a paylaş").
 - Misafir hesabına bağlanan Google / Apple girişi ve izleme listesinin bulutta senkronu.

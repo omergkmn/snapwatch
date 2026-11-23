@@ -47,5 +47,5 @@ app.*.map.json
 # Widget Preview related
 .widget_preview/
 
-# Local App Check debug token
-/config/app_check.json
+# Local keys: App Check debug tokens, TMDB token
+/config/secrets.json

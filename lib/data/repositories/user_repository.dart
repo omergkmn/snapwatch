@@ -31,7 +31,7 @@ class UserRepository {
     await _storage.setOnboardingCompleted();
   }
 
-  Future<void> resetAllData() async {
+  Future<void> deleteAccount() async {
     await _authService.deleteGuest();
     await _storage.clearAll();
   }

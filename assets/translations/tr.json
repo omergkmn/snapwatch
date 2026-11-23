@@ -112,10 +112,10 @@
     "favorite_genres": "Sevdiğin türler",
     "language": "Dil",
     "about": "Hakkında",
-    "reset": "Verileri sıfırla",
-    "reset_title": "Verileri sıfırla?",
-    "reset_body": "Listen, profilin ve abonelik bilgin bu cihazdan silinecek. Bu işlem geri alınamaz.",
-    "reset_confirm": "Sıfırla",
+    "delete_account": "Hesabı sil",
+    "delete_title": "Hesabın silinsin mi?",
+    "delete_body": "Misafir hesabın, izleme listen, profilin ve abonelik bilgin silinecek. Bu işlem geri alınamaz.",
+    "delete_confirm": "Hesabı sil",
     "cancel": "Vazgeç"
   },
   "genres": {

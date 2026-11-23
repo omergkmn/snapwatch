@@ -9,7 +9,7 @@ import 'scan_state.dart';
 
 class ScanCubit extends Cubit<ScanState> {
   ScanCubit(this._mediaRepository, this._subscriptionRepository)
-    : super(const ScanIdle());
+    : super(const ScanInProgress(ScanStep.reading));
 
   final MediaRepository _mediaRepository;
   final SubscriptionRepository _subscriptionRepository;
@@ -19,20 +19,24 @@ class ScanCubit extends Cubit<ScanState> {
     required String mimeType,
     required String languageCode,
   }) async {
-    if (state is ScanInProgress) return;
-
-    emit(const ScanInProgress());
     try {
       final title = await _mediaRepository.recognize(
         image: image,
         mimeType: mimeType,
         languageCode: languageCode,
+        onRequestSent: () => _showStep(ScanStep.recognizing),
+        onFirstChunk: () => _showStep(ScanStep.details),
       );
+      _showStep(ScanStep.finishing);
       // Only a successful recognition uses up a free scan.
       await _subscriptionRepository.recordScan();
-      emit(ScanSuccess(title));
+      if (!isClosed) emit(ScanSuccess(title));
     } on AppException catch (e) {
-      emit(ScanFailure(e.type));
+      if (!isClosed) emit(ScanFailure(e.type));
     }
+  }
+
+  void _showStep(ScanStep step) {
+    if (!isClosed) emit(ScanInProgress(step));
   }
 }

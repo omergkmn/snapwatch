@@ -12,6 +12,7 @@ class MediaTitle {
     this.creator,
     this.overview = '',
     this.platforms = const [],
+    this.posterUrl,
   });
 
   final String title;
@@ -27,6 +28,9 @@ class MediaTitle {
   final String overview;
   final List<String> platforms;
 
+  /// From TMDB; null when no poster was found.
+  final String? posterUrl;
+
   factory MediaTitle.fromJson(Map<String, dynamic> json) {
     return MediaTitle(
       title: json['title'] as String,
@@ -39,6 +43,7 @@ class MediaTitle {
       creator: _nonEmpty(json['creator'] as String?),
       overview: json['overview'] as String? ?? '',
       platforms: List<String>.from(json['platforms'] as List<dynamic>? ?? []),
+      posterUrl: json['posterUrl'] as String?,
     );
   }
 
@@ -54,7 +59,24 @@ class MediaTitle {
       'creator': creator,
       'overview': overview,
       'platforms': platforms,
+      'posterUrl': posterUrl,
     };
+  }
+
+  MediaTitle copyWith({List<String>? platforms, String? posterUrl}) {
+    return MediaTitle(
+      title: title,
+      type: type,
+      originalTitle: originalTitle,
+      year: year,
+      genres: genres,
+      runtimeMinutes: runtimeMinutes,
+      seasonCount: seasonCount,
+      creator: creator,
+      overview: overview,
+      platforms: platforms ?? this.platforms,
+      posterUrl: posterUrl ?? this.posterUrl,
+    );
   }
 }
 
